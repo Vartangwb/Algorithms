@@ -15,10 +15,12 @@ import static java.lang.Math.max;
     重复的子问题多，效率低下。改进的办法——用空间换时间，用数组保存中间状态，方便
     后面的计算。这就是动态规划（DP)的核心思想了。
  */
-public class LCS {
+public class LCS{
+
 
     //用二维数组c[i][j]记录串x1x2⋯xi与y1y2⋯yj的LCS长度，则可得到状态转移方程
     public static int lcs(String str1, String str2){
+
         int len1 = str1.length();
         int len2 = str2.length();
         int c[][] = new int[len1+1][len2+1];

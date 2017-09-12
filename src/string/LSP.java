@@ -26,7 +26,6 @@ public class LSP {
                 maxlength=2;
             }
         }
-
         for(int len=3;len<length;len++)//子串长度
             for(int i=0;i<=length-len;i++)//子串起始地址
             {
@@ -39,7 +38,6 @@ public class LSP {
                 }
             }
         System.out.println(maxlength);
-
         if(maxlength>=2)
             return s.substring(start,start+maxlength);
         return null;
