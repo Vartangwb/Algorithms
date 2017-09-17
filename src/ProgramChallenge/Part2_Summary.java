@@ -84,4 +84,181 @@ public class Part2_Summary {
         }
         return res;
     }
+
+    /**
+     * 对0,1矩阵排序直到变成上三角矩阵
+     * @param n
+     * @param M
+     */
+    public static void solve(int n, int M[][]){
+        int res = 0;
+        int[] a = new int[n];
+        for(int i = 0; i < n;i++){
+            a[i] = -1;
+            for(int j = 0; j < n; j++){
+                if(M[i][j] == 1){
+                    a[i] = j;
+                }
+            }
+        }
+
+        for(int i = 0; i < n; i++){
+            int pos = -1;
+            for(int j = i; j<n;j++){
+                if(a[j] <= i){
+                    pos = j;
+                    break;
+                }
+            }
+
+            for(int j = pos; j > i; j--){
+                int tmp = a[j];
+                a[j] = a[j-1];
+                a[j-1] = tmp;
+                res++;
+            }
+        }
+        System.out.println(res);
+    }
+    //通用的二分搜索
+    public int binarySearch(int[] a, int n, int key){
+        int low = 0;
+        int high = n;
+        int mid = 0;
+        while(low <= high){
+            mid = low + ((high - low) >> 1);
+            if(key == a[mid]){
+                return mid;
+            }else if(key < a[mid]){
+                high = mid - 1;
+            }else{
+                low = mid + 1;
+            }
+        }
+        return -1;
+    }
+    //第一个大于等于key的下标
+    public int firstGreatOrEqual(int[] a, int n, int key){
+        int low = 0;
+        int high = n;
+        int mid = 0;
+        while(low <= high){
+            mid = low + ((high - low) >> 1);
+            if(key <= a[mid]){
+                high = mid - 1;
+            }else{
+                low = mid + 1;
+            }
+        }
+        return low <= n ? low : -1;
+    }
+
+    //第一个大于某个数的下标
+    public int firstGreat(int[] a, int n, int key){
+        //n + 1 个数
+        int low = 0;
+        int high = n;
+        int mid = 0;
+        while(low <= high) {
+            mid = low + ((high-low) >> 1);
+            if(key < a[mid]) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return low <= n ? low : -1;
+    }
+    //查找数组中某个数的位置的最小下标
+    public int firstIndex(int[] a, int n, int key){
+        //n + 1 个数
+        int low = 0;
+        int high = n;
+        int mid = 0;
+        while(low <= high) {
+            mid = low + ((high-low) >> 1);
+            if(key <= a[mid]) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return (low <= n) && (a[low] == key) ? low : -1;
+    }
+
+    //查找某个数位置的最大下标
+    public int lastIndex(int[] a, int n, int key){
+        //n + 1 个数
+        int low = 0;
+        int high = n;
+        int mid = 0;
+        while(low <= high) {
+            mid = low + ((high-low) >> 1);
+            if(key < a[mid]) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return (low - 1 >= 0 && (a[low - 1] == key))? low - 1: -1;
+    }
+    //查找数组中小于某个数的最大下标
+    public int firstLess(int[] a, int n, int key) {
+        // n + 1 个数
+        int low = 0;
+        int high = n;
+        int mid = 0;
+        while (low <= high) {
+            mid = low + ((high - low) >> 1);
+            if (key <= a[mid]) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return (low - 1 >= 0) ? low - 1 : -1;
+    }
+
+    //返回区间
+    public int getCount(int[] a, int n, int key) {
+        // n + 1 个数
+        int first = firstGreatOrEqual2(a, n, key);
+        int last = firstGreat2(a, n, key);
+        return last - first;
+    }
+
+    public int firstGreatOrEqual2(int[] a, int n, int key) {
+        // n + 1 个数
+        int low = 0;
+        int high = n;
+        int mid = 0;
+        while (low <= high) {
+            mid = low + ((high - low) >> 1);
+            if (key <= a[mid]) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return low;
+    }
+
+    public int firstGreat2(int[] a, int n, int key) {
+        // n + 1 个数
+        int low = 0;
+        int high = n;
+        int mid = 0;
+        while (low <= high) {
+            mid = low + ((high - low) >> 1);
+            if (key < a[mid]) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return low;
+    }
+    public static void main(String[] args) {
+        solve(4,new int[][]{{1,1,1,0},{1,1,0,0},{1,1,0,0},{1,0,0,0}});
+    }
 }
